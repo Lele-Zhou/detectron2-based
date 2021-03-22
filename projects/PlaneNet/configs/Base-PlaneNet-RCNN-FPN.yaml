@@ -1,0 +1,18 @@
+_BASE_: "../../../../configs/Base-RCNN-FPN.yaml"
+MODEL:
+  MASK_ON: true
+  ROI_BOX_HEAD:
+    TRAIN_ON_PRED_BOXES: True
+    VERTEX_HEAD_ON: True
+  VERTEX_HEAD:
+    NAME: "VertexHead"
+    IN_FEATURES: ["P2"]
+    OUTPUT_CHANNELS: 2
+    OUTPUT_SIDE_RESOLUTION: 512
+  DATASETS:
+    TRAIN: ("plane_net_train",)
+    TEST: ("plane_net_val",)
+INPUT:
+  # PointRend for instance segmenation does not work with "polygon" mask_format.
+  MASK_FORMAT: "bitmask"
+  DIR : "/home/zll/HoliCity-MaskRCNN/output/"  # path to coco_format json file
